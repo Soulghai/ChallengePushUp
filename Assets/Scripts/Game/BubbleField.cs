@@ -58,7 +58,7 @@ public class BubbleField : MonoBehaviour
 				distance = minRadius + minRadius*size + Random.value * 5f;
 				angle = Random.Range(0, 360)*Mathf.Deg2Rad;
 				pos = new Vector3(distance * Mathf.Cos(angle), distance * Mathf.Sin(angle), 1f);
-				if (!CheckRadius(pos, size*minRadius))
+				if (CheckRadius(pos, minRadius, size*minRadius))
 				{
 					break;
 				}
@@ -71,15 +71,16 @@ public class BubbleField : MonoBehaviour
 		}
 	}
 	
-	private bool CheckRadius(Vector3 pos, float radius) {
-		
-		foreach (Bubble _object in GetComponentsInChildren<Bubble>()) {
+	private bool CheckRadius(Vector3 pos, float minRadius, float radius)
+	{
+		Bubble[] bubbles = GetComponentsInChildren<Bubble>();
+		foreach (Bubble _object in bubbles) {
 			if (_object) {
-				if ( Vector3.Distance (pos, _object.transform.position) <= radius)
-					return true;
+				if ( Vector3.Distance (pos, _object.transform.position) <= radius+minRadius*_object.Scale)
+					return false;
 			}
 		}
-		return false;
+		return true;
 	}
 	
 	private void OnCalcBubbleSum()

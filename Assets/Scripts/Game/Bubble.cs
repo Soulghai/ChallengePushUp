@@ -28,6 +28,7 @@ public class Bubble : MonoBehaviour {
 		transform.DOScale(Vector3.one, .5f).SetEase(Ease.InOutCirc).OnComplete(() =>
 		{
 			GameEvents.Send(OnCreated, gameObject);
+			body.simulated = true;
 		});
 	}
 
