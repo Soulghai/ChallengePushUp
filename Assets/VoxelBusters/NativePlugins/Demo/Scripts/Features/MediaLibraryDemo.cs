@@ -15,16 +15,16 @@ namespace VoxelBusters.NativePlugins.Demo
 		#region Properties
 
 #pragma warning disable
-		[SerializeField, Header("Image Section")]
-		private 	Texture2D	m_texture;
-
 		[SerializeField, Header("Video Section"), Tooltip ("This needs to be direct link to the video file. ex: http://www.google.com/video.mp4")]
 		private 	string		m_videoURL;
 		[SerializeField]
 		private 	string		m_youtubeVideoID;
 		[SerializeField]
-		private 	string		m_embedHTMLString;
-		private		bool		m_canEditImages		= true;
+		private		TextAsset	m_vimeoPlayerHTML;
+		[SerializeField]
+		private 	string		m_vimeoVideoID;
+
+		private		bool		m_canEditImages			= true;
 #pragma warning restore
 
 		#endregion
@@ -196,7 +196,8 @@ namespace VoxelBusters.NativePlugins.Demo
 		
 		private void PlayEmbeddedVideo ()
 		{
-			NPBinding.MediaLibrary.PlayEmbeddedVideo(m_embedHTMLString, PlayVideoFinished);
+			string _embeddedVideoHTML	= m_vimeoPlayerHTML.text.Replace("$video_id", m_vimeoVideoID);
+			NPBinding.MediaLibrary.PlayEmbeddedVideo(_embeddedVideoHTML, PlayVideoFinished);
 		}
 
 		#endregion

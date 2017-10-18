@@ -11,12 +11,12 @@ namespace VoxelBusters.Utility
 	{
 		#region Methods
 
-		public void SaveManifest (string _packageName, string _path)
+		public void SaveManifest (string _packageName, string _path, string _minSDKVersion, string _targetSDKVersion)
 		{
-			SaveManifest(_packageName, "1", "1.0", "9", "26", _path);
+			SaveManifest(_packageName, _path, "1", "1.0", _minSDKVersion, _targetSDKVersion);
 		}
 
-		public void SaveManifest (string _packageName, string _versionCode, string _versionName, string _minSDKVersion, string _targetSDKVersion, string _path)
+		public void SaveManifest (string _packageName, string _path, string _versionCode, string _versionName, string _minSDKVersion, string _targetSDKVersion)
 		{
 			// Settings
 			XmlWriterSettings _settings 	= new XmlWriterSettings();

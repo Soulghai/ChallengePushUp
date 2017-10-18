@@ -106,21 +106,21 @@ public class D
         public void Log()
         {
 #if DEBUG || UNITY_EDITOR
-            Debug.logger.Log(LogType.Log, _builder.ToString());
+            Debug.unityLogger.Log(LogType.Log, _builder.ToString());
 #endif
         }
 
         public void Warning()
         {
 #if DEBUG || UNITY_EDITOR
-            Debug.logger.Log(LogType.Warning, _builder.ToString());
+            Debug.unityLogger.Log(LogType.Warning, _builder.ToString());
 #endif
         }
 
         public void Error()
         {
 #if DEBUG || UNITY_EDITOR
-            Debug.logger.Log(LogType.Error, _builder.ToString());
+            Debug.unityLogger.Log(LogType.Error, _builder.ToString());
 #endif
         }
 

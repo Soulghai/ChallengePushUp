@@ -1,11 +1,10 @@
 ﻿using DarkTonic.MasterAudio;
 using DoozyUI;
+using PrefsEditor;
 using UnityEngine;
 
 public class ScreenGame : ScreenItem
 {
-    [SerializeField] private ScreenColorAnimation _screenAnimation;
-
     private bool _isScreenRateDone;
     private bool _isScreenReviveDone;
     private bool _isScreenShareDone;
@@ -26,6 +25,7 @@ public class ScreenGame : ScreenItem
     {
         InitUi();
         _gameState = GameState.Init;
+        Invoke("CheckSate", .5f);
     }
 
     private void Init()
@@ -60,6 +60,18 @@ public class ScreenGame : ScreenItem
 
         if (DefsGame.GameplayCounter > 1)
             GlobalEvents<OnGameOverScreenShow>.Call(new OnGameOverScreenShow());
+    }
+
+    private void CheckSate()
+    {
+        if (SecurePlayerPrefs.GetBool("IsChallengeStarted"))
+        {
+            ScreensFSM.Fsm.SetState("ScreenAddValue");
+        }
+        else
+        {
+            ScreensFSM.Fsm.SetState("ScreenSetupGoal");
+        }
     }
 
     private void OnEnable()
@@ -183,21 +195,13 @@ public class ScreenGame : ScreenItem
                 // Gameplay
                 break;
             case GameState.GameOver:
-                _screenAnimation.SetAlphaMax(0.75f);
-                _screenAnimation.SetAnimation(false, 0.1f);
-                _screenAnimation.Show();
-                _screenAnimation.SetAnimation(true, 0.02f);
-                _screenAnimation.SetColor(1.0f, 0.21f, 0.21f);
-                _screenAnimation.SetAutoHide(true);
+                
 
                 _gameState = GameState.RedScreen;
                 break;
             case GameState.RedScreen:
-                if (!_screenAnimation.isActiveAndEnabled)
-                {
-                    _gameState = GameState.RedScreenWait;
-                    EndCurrentGame();
-                }
+               _gameState = GameState.RedScreenWait;
+               EndCurrentGame();
                 break;
             case GameState.RedScreenWait:
                 break;

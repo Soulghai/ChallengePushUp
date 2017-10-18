@@ -186,6 +186,9 @@
   },
   "NativePlugins-WebView": {
     "group": "NativePlugins-WebView",
+    "frameworks": [
+      "WebKit.framework"
+    ],
     "folders": [
       "WebView/Assets",
       "WebView/Source:-fno-objc-arc"

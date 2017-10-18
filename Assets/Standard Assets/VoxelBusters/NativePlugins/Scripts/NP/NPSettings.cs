@@ -30,7 +30,7 @@ namespace VoxelBusters.NativePlugins
 		// Product info
 		private		const	bool		kIsFullVersion					= true;
 		private 	const 	string 		kProductName					= "Native Plugins";
-		private 	const 	string 		kProductVersion					= "1.5.3";
+		private 	const 	string 		kProductVersion					= "1.5.4";
 
 		// Pref key
 		private		const	string		kPrefsKeyBuildIdentifier		= "np-build-identifier";
@@ -404,7 +404,7 @@ namespace VoxelBusters.NativePlugins
 			if (_supportedFeatures.UsesCloudServices && !_supportedFeatures.UsesGameServices)
 			{
 				string _error = "Cloud Services on Android needs Game Services feature to be enabled. Please enable Game Services now.";
-				Debug.LogError("[Cross Platform Native Plugins] " + _error);
+				Debug.LogWarning("[Cross Platform Native Plugins] " + _error);
 				EditorUtility.DisplayDialog("Cross Platform Native Plugins - Alert", _error, "Ok");
 			}
 				
@@ -412,7 +412,7 @@ namespace VoxelBusters.NativePlugins
 			if (string.IsNullOrEmpty(NPSettings.Billing.Android.PublicKey))
 			{
 				string _error = "Please specify Public key in Billing Settings for using Billing feature. You can get this key from Google Play Developer Console -> Your App -> Development & Tools -> Services & API -> Licensing & in-app billing.";
-				Debug.LogError("[Cross Platform Native Plugins] " + _error);
+				Debug.LogWarning("[Cross Platform Native Plugins] " + _error);
 			}
 #endif
 			
@@ -475,11 +475,15 @@ namespace VoxelBusters.NativePlugins
 		private void WriteAndroidManifestFile ()
 		{
 			string _manifestFolderPath = Constants.kAndroidPluginsLibraryPath;
-			
+
 			if (AssetsUtility.FolderExists(_manifestFolderPath))
 			{
 				NPAndroidManifestGenerator _generator	= new NPAndroidManifestGenerator();
-				_generator.SaveManifest("com.voxelbusters.androidnativeplugin", _manifestFolderPath + "/AndroidManifest.xml");
+#if UNITY_2017_1_OR_NEWER
+				_generator.SaveManifest("com.voxelbusters.androidnativeplugin", _manifestFolderPath + "/AndroidManifest.xml", "9", "26");
+#else
+				_generator.SaveManifest("com.voxelbusters.androidnativeplugin", _manifestFolderPath + "/AndroidManifest.xml", "9", "24");
+#endif
 			}
 		}
 		

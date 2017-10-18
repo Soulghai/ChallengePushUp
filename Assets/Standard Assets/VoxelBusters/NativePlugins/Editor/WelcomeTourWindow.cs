@@ -37,7 +37,7 @@ namespace VoxelBusters.NativePlugins.Internal
 		static WelcomeTourWindow ()
 		{
 			//Launch only if its not batchmode (command line execution)
-			if(!System.Environment.CommandLine.Contains("-batchmode"))
+			/*if(!System.Environment.CommandLine.Contains("-batchmode"))
 			{
 				bool _alreadyShowedWelcomeTour	= EditorPrefs.GetBool(kShowWelcomeTourStatusKey, false);
 	
@@ -49,7 +49,7 @@ namespace VoxelBusters.NativePlugins.Internal
 					// Update status in preference
 					EditorPrefs.SetBool(kShowWelcomeTourStatusKey, true);
 				}
-			}
+			}*/
 		}
 
 		public static void ShowWindow ()

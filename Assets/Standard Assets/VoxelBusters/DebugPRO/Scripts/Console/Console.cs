@@ -274,9 +274,15 @@ namespace VoxelBusters.DebugPRO
 			UnityDebugUtility.LogCallback			+= HandleUnityLog;
 			
 #if UNITY_EDITOR
+#if UNITY_2017_2_OR_NEWER
+			// Unity callbacks
+			EditorApplication.playModeStateChanged	-= PlaymodeStateChanged;
+			EditorApplication.playModeStateChanged	+= PlaymodeStateChanged;
+#else
 			// Unity callbacks
 			EditorApplication.playmodeStateChanged	-= PlaymodeStateChanged;
 			EditorApplication.playmodeStateChanged	+= PlaymodeStateChanged;
+#endif
 #endif
 		}
 
@@ -361,7 +367,7 @@ namespace VoxelBusters.DebugPRO
 		}
 
 #if UNITY_EDITOR
-
+#if !UNITY_2017_2_OR_NEWER
 		private static void PlaymodeStateChanged ()
 		{
 			if (EditorApplication.isPlaying)
@@ -376,6 +382,22 @@ namespace VoxelBusters.DebugPRO
 				}
 			}
 		}
+#else
+		private static void PlaymodeStateChanged (PlayModeStateChange _stateChange)
+		{
+			if (_stateChange == PlayModeStateChange.EnteredPlayMode)
+			{
+				// Unregister from callback
+				EditorApplication.playModeStateChanged -= PlaymodeStateChanged;
+
+				// TODO: Callback is delayed until Start is called on gameobjects. Need to find better way.
+				if (Instance != null && Instance.m_clearOnPlay)
+				{
+					//					Instance.Clear();
+				}
+			}
+		}
+#endif
 #endif
 
 		#endregion

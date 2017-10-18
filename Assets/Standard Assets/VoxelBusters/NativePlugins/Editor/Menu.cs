@@ -71,6 +71,29 @@ namespace VoxelBusters.NativePlugins.Internal
 			EditorPushNotificationService.ShowWindow();
 		}
 #endif
+
+
+#if USES_BILLING
+		[MenuItem(kMenuNodeSimulation + "/Helpers/Clear Purchase History", false, kMenuItemPrioritySimulate)]
+		private static void ClearPurchases ()
+		{
+			EditorStore.ClearPurchaseHistory();
+		}
+#endif
+
+#if USES_GAME_SERVICES
+		[MenuItem(kMenuNodeSimulation + "/Helpers/Refresh Game Center", false, kMenuItemPrioritySimulate)]
+		private static void RefreshGameCenter ()
+		{
+			EditorGameCenter.Instance.Refresh();
+		}
+
+		[MenuItem(kMenuNodeSimulation + "/Helpers/Reset Game Center Achievements", false, kMenuItemPrioritySimulate)]
+		private static void ResetGameAchievements ()
+		{
+			EditorGameCenter.Instance.ResetAchievements();
+		}
+#endif
 		
 		#endregion
 

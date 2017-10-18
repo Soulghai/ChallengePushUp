@@ -21,9 +21,9 @@ namespace VoxelBusters.NativePlugins
 		private static readonly string PluginName = "CrossPlatformNativePlugins";
 		private static readonly string DependencyFileDirectory = "ProjectSettings";
 
-#if UNITY_2017_1_OR_NEWER
+#if UNITY_5_5_OR_NEWER && !NATIVE_PLUGINS_LITE_VERSION
 		private static readonly string PlayServicesVersionString	=	"11.0+";
-		private static readonly string SupportLibsVersionString		=	"26.0.1+";//26.0.1+ is must as we need to use NotificationCompat for Oreo and Up devices - wehn targetting >= 26
+		private static readonly string SupportLibsVersionString		=	"26.0.1+"; //26.0.1+ is must as we need to use NotificationCompat for Oreo and Up devices - wehn targetting >= 26
 #else
 		private static readonly string PlayServicesVersionString	=	"10.0+";
 		private static readonly string SupportLibsVersionString		=	"24.2+";
@@ -115,7 +115,7 @@ namespace VoxelBusters.NativePlugins
 					namedArgs: null
 				);
 			}
-
+			
 			/*Google.VersionHandler.InvokeInstanceMethod(
 				svcSupport, "DependOn",
 				new object[] { 	"com.android.support",

@@ -21,5 +21,5 @@
       <meta-data android:name="unityplayer.SkipPermissionsDialog" android:value="true" /> <!-- Use this if you want to skip the permissions dialog at start - for TargetAPI >= 23. Our plugin supports Runtime Permissions 6.0+ -->
     </activity>
   </application>
-  <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="26" /> <!-- If you below Unity 2017.1, you can keep lower than mentioned min-sdk. Cross check whats your target sdk and set here-->
+  <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="24" /> <!-- If you below Unity 2017.1, you can keep lower than mentioned min-sdk. Cross check whats your target sdk and set here-->
 </manifest>
