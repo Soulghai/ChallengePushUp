@@ -5,28 +5,16 @@
   <application>
     <!--Billing : Activity used for purchase view-->
     <activity android:name="com.voxelbusters.nativeplugins.features.billing.serviceprovider.google.GoogleBillingActivity" android:theme="@style/FloatingActivityTheme" />
-    <!--MediaLibrary : Generic helper activity-->
-    <activity android:name="com.voxelbusters.nativeplugins.features.medialibrary.MediaLibraryActivity" android:theme="@style/FloatingActivityTheme" android:screenOrientation="sensor" android:configChanges="keyboardHidden|orientation|screenSize" />
-    <!--MediaLibrary : Used for Launching video from gallery-->
-    <activity android:name="com.voxelbusters.nativeplugins.features.medialibrary.GalleryVideoLauncherActivity" android:theme="@style/FloatingActivityTheme" android:screenOrientation="sensor" />
-    <!--MediaLibrary : Youtube player activity-->
-    <activity android:name="com.voxelbusters.nativeplugins.features.medialibrary.YoutubePlayerActivity" />
-    <!--Application Launcher - Notifications : Used as a proxy to capture triggered notification.-->
-    <activity android:name="com.voxelbusters.nativeplugins.features.notification.core.ApplicationLauncherFromNotification" android:theme="@style/FloatingActivityTheme" android:exported="true" />
-    <!--SocialNetworking - Twitter : Generic helper activity-->
-    <activity android:name="com.voxelbusters.nativeplugins.features.socialnetwork.twitter.TwitterHelperActivity" android:theme="@style/FloatingActivityTheme" />
     <!--Game Play Services helper activity-->
     <activity android:name="com.voxelbusters.nativeplugins.features.gameservices.serviceprovider.google.GooglePlayGameUIActivity" android:theme="@style/FloatingActivityTheme" />
     <!--Sharing-->
     <activity android:name="com.voxelbusters.nativeplugins.features.sharing.SharingActivity" android:theme="@style/FloatingActivityTheme" />
-    <!--Webview : For File Choosing-->
-    <activity android:name="com.voxelbusters.nativeplugins.features.webview.FileChooserActivity" android:theme="@style/FloatingActivityTheme" />
     <!--UI  : Generic helper activity for launching Dialogs-->
     <activity android:name="com.voxelbusters.nativeplugins.features.ui.UiActivity" android:theme="@style/FloatingActivityTheme" />
     <!--Game Play Services helper activity-->
     <activity android:name="com.voxelbusters.nativeplugins.helpers.PermissionRequestActivity" android:theme="@style/FloatingActivityTheme" />
     <!--Custom File Provider. Sharing from internal folders  "com.voxelbusters.nativeplugins.extensions.FileProviderExtended"-->
-    <provider android:name="com.voxelbusters.nativeplugins.extensions.FileProviderExtended" android:authorities="com.Company.ProductName.fileprovider" android:exported="false" android:grantUriPermissions="true">
+    <provider android:name="com.voxelbusters.nativeplugins.extensions.FileProviderExtended" android:authorities="com.squaredino.challenge.fileprovider" android:exported="false" android:grantUriPermissions="true">
       <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/nativeplugins_file_paths" />
     </provider>
     <!--Billing : Amazon Billing Receiver-->
@@ -35,40 +23,11 @@
         <action android:name="com.amazon.inapp.purchasing.NOTIFY" android:permission="com.amazon.inapp.purchasing.Permission.NOTIFY" />
       </intent-filter>
     </receiver>
-    <!--Notifications : GCM Receiver-->
-    <receiver android:name="com.voxelbusters.nativeplugins.features.notification.serviceprovider.gcm.GCMBroadcastReceiver" android:permission="com.google.android.c2dm.permission.SEND">
-      <intent-filter>
-        <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-        <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
-        <category android:name="com.Company.ProductName" />
-      </intent-filter>
-    </receiver>
-    <!--Notifications : Receiver for alarm to help Local Notifications-->
-    <receiver android:name="com.voxelbusters.nativeplugins.features.notification.core.AlarmEventReceiver" />
-    <!--Notifications : GCM Service-->
-    <service android:name="com.voxelbusters.nativeplugins.features.notification.serviceprovider.gcm.GCMIntentService" />
     <meta-data android:name="com.google.android.gms.games.APP_ID" android:value="\ " />
   </application>
   <!--Permissions-->
-  <!--Address Book-->
-  <uses-permission android:name="android.permission.READ_CONTACTS" />
-  <!--Network Connectivity-->
-  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
   <!--Billing-->
   <uses-permission android:name="com.android.vending.BILLING" />
-  <!--Media Library-->
-  <uses-permission android:name="android.permission.CAMERA" />
-  <uses-feature android:name="android.hardware.camera" android:required="false" />
-  <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
-  <uses-permission android:name="com.google.android.apps.photos.permission.GOOGLE_PHOTOS" />
-  <uses-permission android:name="android.permission.MANAGE_DOCUMENTS" />
-  <!--For enabling GCM-->
-  <permission android:name="com.Company.ProductName.permission.C2D_MESSAGE" android:protectionLevel="signature" />
-  <uses-permission android:name="android.permission.WAKE_LOCK" />
-  <uses-permission android:name="com.Company.ProductName.permission.C2D_MESSAGE" />
-  <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-  <!--Notifications : If vibration is required for notification-->
-  <uses-permission android:name="android.permission.VIBRATE" />
   <!--GameServices : For getting content provider access.-->
   <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
   <!--Notifications : Badge Permission for Samsung Devices-->
@@ -98,7 +57,4 @@
   <uses-permission android:name="me.everything.badger.permission.BADGE_COUNT_WRITE" />
   <!--Required for internet access-->
   <uses-permission android:name="android.permission.INTERNET" />
-  <!--For Saving to external directory - Save to Gallery Feature in MediaLibrary-->
-  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 </manifest>

@@ -105,7 +105,10 @@ public struct OnGotNewCharacter{}
 //--------------------------------------------------------
 
 // Нажали на кнопку "Поделиться игрой"
-public struct OnBtnShareClick{}
+public struct OnBtnShareClick
+{
+    public bool IsGift;
+}
 
 // Нажали на кнопку "Поделиться Gif"
 public struct OnBtnShareGifClick

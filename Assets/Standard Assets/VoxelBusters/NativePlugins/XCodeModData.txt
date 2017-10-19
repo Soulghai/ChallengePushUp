@@ -59,6 +59,9 @@
   },
   "NativePlugins-Common": {
     "group": "NativePlugins-Common",
+    "frameworks": [
+      "WebKit.framework"
+    ],
     "folders": [
       "Common/Assets",
       "Common/Source:-fno-objc-arc"
@@ -73,7 +76,8 @@
   "NativePlugins-GameServices": {
     "group": "NativePlugins-GameServices",
     "frameworks": [
-      "GameKit.framework"
+      "GameKit.framework",
+      "WebKit.framework"
     ],
     "folders": [
       "GameServices/Assets",

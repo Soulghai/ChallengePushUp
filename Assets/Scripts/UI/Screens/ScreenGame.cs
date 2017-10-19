@@ -9,8 +9,7 @@ public class ScreenGame : ScreenItem
     private bool _isScreenReviveDone;
     private bool _isScreenShareDone;
 
-    private enum GameState {Init = 0, WaitToStart = 1, Gameplay = 2, GameOver = 3, RedScreen = 4, RedScreenWait = 5, BackToMenu = 6
-    }
+    private enum GameState {Init = 0, WaitToStart = 1, Gameplay = 2, GameOver = 3, RedScreen = 4, RedScreenWait = 5, BackToMenu = 6}
     private GameState _gameState;
 
     private bool _isRewardedVideoReadyToShow;

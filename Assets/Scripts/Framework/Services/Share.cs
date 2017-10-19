@@ -4,6 +4,7 @@ using VoxelBusters.NativePlugins;
 public class Share : MonoBehaviour
 {
 	private string _gifName;
+	private bool _isGift;
     
     private void OnEnable()
     {
@@ -40,11 +41,12 @@ public class Share : MonoBehaviour
 
 	private void OnBtnShareClick(OnBtnShareClick obj)
 	{
-		ShareClick();
+		ShareClick(obj.IsGift);
 	}
 
-	public void ShareClick()
+	public void ShareClick(bool isGift)
 	{
+		_isGift = isGift;
 		var _shareLink = "http://smarturl.it/YummMonsters";
 
 		#if UNITY_IOS
@@ -80,6 +82,7 @@ public class Share : MonoBehaviour
 
 	void FinishedSharing (eShareResult _result){
 		Debug.Log("Share Result = " + _result);
-		GlobalEvents<OnGifShared>.Call (new OnGifShared ());
+		if (_isGift)
+			GlobalEvents<OnGifShared>.Call (new OnGifShared ());
 	}
 }
