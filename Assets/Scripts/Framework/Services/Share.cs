@@ -54,15 +54,15 @@ public class Share : MonoBehaviour
 		_shareLink = "http://smarturl.it/YummMonsters";
 		#endif
 
-		var shareText = "Wow! I Just Scored [" + DefsGame.GameBestScore +
-			"] in #YummMonsters! Can You Beat Me? @AppsoluteGames " + _shareLink;
+		var shareText = "Мой результат на сегодня [" + DefsGame.GameBestScore +
+			"] в #Challenge Push Up! А ты сможешь? @SquareDino " + _shareLink;
 
 
-		var _screenShotPath = Application.persistentDataPath + "/promo1.jpg";
+//		var _screenShotPath = Application.persistentDataPath + "/promo1.jpg";
 
-		if (Random.value > 0.5f) _screenShotPath = Application.persistentDataPath + "/promo2.jpg";
+//		if (Random.value > 0.5f) _screenShotPath = Application.persistentDataPath + "/promo2.jpg";
 
-		ShareImageAtPathUsingShareSheet(shareText, _screenShotPath);
+		ShareImageAtPathUsingShareSheet(shareText, "");
 	}
 
     private void ShareImageAtPathUsingShareSheet(string _shareText, string _screenShotPath)
@@ -71,7 +71,7 @@ public class Share : MonoBehaviour
 		ShareSheet shareSheet = new ShareSheet ();
 
 		shareSheet.Text = _shareText;
-		shareSheet.AttachImageAtPath (_screenShotPath);
+//		shareSheet.AttachImageAtPath (_screenShotPath);
 
 		// Show composer
 		NPBinding.UI.SetPopoverPointAtLastTouchPosition ();

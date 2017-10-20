@@ -91,7 +91,12 @@ public class GoalScript : MonoBehaviour {
 	public void SetTotalProgress(int value)
 	{
 		TotalProgress = value;
-		if (TotalProgress > TotalGoal) TotalProgress = TotalGoal;
+		if (TotalProgress > TotalGoal)
+		{
+			TotalProgress = TotalGoal;
+			if (State == BubbleFieldState.AddValue)
+				ScreensFSM.Fsm.SendEvent("ChallengeEnd");
+		}
 		_totalProgress.text = TotalProgress.ToString();
 		float addSize = (float)TotalProgress / TotalGoal * (1f - StartSize);
 		_scalablePart.transform.localScale = new Vector3(StartSize + addSize, StartSize + addSize, 1f);
@@ -105,10 +110,10 @@ public class GoalScript : MonoBehaviour {
 
 	private void OnSumCalced(int obj)
 	{
-		if (TotalProgress + obj >= TotalGoal)
-		{
-			GameEvents.Send(OnStopReproduceBubble);
-		}
+//		if (TotalProgress + obj >= TotalGoal)
+//		{
+//			GameEvents.Send(OnStopReproduceBubble);
+//		}
 	}
 
 	private void OnBubbleAddValue(int obj)
@@ -167,7 +172,7 @@ public class GoalScript : MonoBehaviour {
 
 	private void Update()
 	{
-		Invoke("UpdateInfo", 1);
+		Invoke("UpdateInfo", 120);
 		
 	}
 
@@ -175,10 +180,14 @@ public class GoalScript : MonoBehaviour {
 	{
 		var currentDate = DateTime.UtcNow;
 		var difference = currentDate.Subtract(_launchDate);
-		if (_day) _day.text = (int)difference.TotalDays + "/" + TotalDays;
-		if (Math.Abs(_currentDay - difference.TotalDays) > 1.00f)
+		if (_day) _day.text = (int)(difference.TotalMinutes+1) + "/" + TotalDays;
+		if (Math.Abs(_currentDay - difference.TotalMinutes) > 1.00f)
 		{
-			_currentDay = (int)difference.TotalDays;
+			if (_currentDay > difference.TotalMinutes)
+			{
+				ScreensFSM.Fsm.SetState("ScreenAddValue");
+			}
+			_currentDay = (int)difference.TotalMinutes;
 			PlayerPrefs.SetInt("CurrentDay", _currentDay);
 			_currentDayValue = 0;
 			if (_today) _today.text = "0";
