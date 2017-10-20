@@ -13,7 +13,7 @@
 
 // Constants
 const NSString *bundleIdentifier	= @"com.squaredino.challenge";
-const NSString *bundleVersion		= @"0";
+const NSString *bundleVersion		= @"3";
 
 @interface ReceiptVerificationManager ()
 
