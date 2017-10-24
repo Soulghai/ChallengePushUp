@@ -98,7 +98,7 @@ public class BubbleField : MonoBehaviour
 		
 		GameObject go = Instantiate(_goal);
 		_goalScript = go.GetComponent<GoalScript>();
-		_goalScript.TotalGoal = 99999;
+		DefsGame.TotalGoal = 99999;
 		_goalScript.IsEnableClick = true;
 		_goalScript.SetTotalProgress(PlayerPrefs.GetInt("TotalGoal"));
 		_goalScript.State = _state;
@@ -133,7 +133,7 @@ public class BubbleField : MonoBehaviour
 		
 		GameObject go = Instantiate(_goal);
 		_goalScript = go.GetComponent<GoalScript>();
-		_goalScript.TotalGoal = 712;
+		DefsGame.TotalGoal = 712;
 		_goalScript.IsEnableClick = true;
 		_goalScript.SetTotalProgress(PlayerPrefs.GetInt("TotalDays"));
 		_goalScript.State = _state;

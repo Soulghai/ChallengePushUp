@@ -110,7 +110,7 @@ public class ScreenGameOver : ScreenItem
         
         if (Random.value > 0.7f) AddWordTimerOrProgress();
 
-        if (_activeNamesList.Count < 4 && (DefsGame.CurrentPointsCount > DefsGame.GameBestScore * 0.5f
+        if (_activeNamesList.Count < 4 && (DefsGame.CurrentPointsCount > DefsGame.TotalProgress * 0.5f
                                            || _isGotNewCharacter
                                            || _activeNamesList.Count == 0 && ran < 0.3f
                                            || _activeNamesList.Count == 1 && ran < 0.25f

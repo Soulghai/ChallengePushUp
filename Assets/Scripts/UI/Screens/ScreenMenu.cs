@@ -62,7 +62,7 @@ public class ScreenMenu : ScreenItem
         _isButtonHiden = false;
 
         //UIManager.ShowUiElement ("MainMenu");
-        if (DefsGame.GameBestScore > 0)
+        if (DefsGame.TotalProgress > 0)
         {
             UIManager.ShowUiElement("LabelBestScore");
         }

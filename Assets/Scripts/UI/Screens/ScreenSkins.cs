@@ -60,7 +60,7 @@ public class ScreenSkins : ScreenItem
         AreThereSkinsGeneral();
 //        CheckAvailableSkin();
         
-        if (DefsGame.GameBestScore > 0) UIManager.ShowUiElement("LabelBestScore");
+        if (DefsGame.TotalProgress > 0) UIManager.ShowUiElement("LabelBestScore");
         if (DefsGame.CoinsCount > 0)
         {
             UIManager.ShowUiElement("LabelCoins");

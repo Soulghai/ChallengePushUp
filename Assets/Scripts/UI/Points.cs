@@ -68,10 +68,10 @@ public class Points : MonoBehaviour
     private void AddPoint(int count)
     {
         DefsGame.CurrentPointsCount += count;
-        if (DefsGame.GameBestScore < DefsGame.CurrentPointsCount)
+        if (DefsGame.TotalProgress < DefsGame.CurrentPointsCount)
         {
-            DefsGame.GameBestScore = DefsGame.CurrentPointsCount;
-            SecurePlayerPrefs.SetInt("BestScore",DefsGame.GameBestScore);
+            DefsGame.TotalProgress = DefsGame.CurrentPointsCount;
+            SecurePlayerPrefs.SetInt("BestScore",DefsGame.TotalProgress);
         }
         _isPointAdded = true;
     }

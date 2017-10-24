@@ -31,7 +31,7 @@ public class Share : MonoBehaviour
         _shareLink = "http://smarturl.it/YummMonsters";
 #endif
 
-        var shareText = "Wow! I Just Scored [" + DefsGame.GameBestScore +
+        var shareText = "Wow! I Just Scored [" + DefsGame.TotalProgress +
                         "] in #YummMonsters! Can You Beat Me? @AppsoluteGames " + _shareLink;
 
 		ShareImageAtPathUsingShareSheet(shareText, _gifName + ".gif");
@@ -49,13 +49,9 @@ public class Share : MonoBehaviour
 		_isGift = isGift;
 		var _shareLink = "http://smarturl.it/YummMonsters";
 
-		#if UNITY_IOS
-
-		_shareLink = "http://smarturl.it/YummMonsters";
-		#endif
-
-		var shareText = "Мой результат на сегодня [" + DefsGame.GameBestScore +
-			"] в #Challenge Push Up! А ты сможешь? @SquareDino " + _shareLink;
+		var shareText = "Мой результат на сегодня " + DefsGame.TotalProgress + " (из " + DefsGame.TotalGoal +
+		                ") в #ChallengePushUp! А ты сможешь? @SquareDino";
+//		                + _shareLink;
 
 
 //		var _screenShotPath = Application.persistentDataPath + "/promo1.jpg";

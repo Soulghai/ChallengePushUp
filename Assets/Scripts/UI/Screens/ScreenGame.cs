@@ -30,7 +30,7 @@ public class ScreenGame : ScreenItem
     private void Init()
     {
         DefsGame.GameServices.ReportProgressWithGlobalID(DefsGame.GameServices.ACHIEVEMENT_FIRST_WIN,
-            DefsGame.GameBestScore);
+            DefsGame.TotalProgress);
 
         ++DefsGame.QUEST_GAMEPLAY_Counter;
         PlayerPrefs.SetInt("QUEST_GAMEPLAY_Counter", DefsGame.QUEST_GAMEPLAY_Counter);

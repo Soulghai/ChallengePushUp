@@ -36,36 +36,36 @@ public class SkyBoxColors : MonoBehaviour
         startTime = Time.time;
     }
 
-    private void Update()
-    {
-        _currColorTop = ColorsTop[СurrentId];
-        GetComponent<Skybox>().material.SetColor("_Color2", _currColorTop);
-        _currColorDown = ColorsDown[СurrentId];
-        GetComponent<Skybox>().material.SetColor("_Color1", _currColorDown);
-    }
-
 //    private void Update()
 //    {
-//        _time += Time.deltaTime;
-//        if (_time >= Delay)
-//        {
-//            _time = 0f;
-//            ChooseNextColor();
-//        }
-//
-//        var distCovered = (Time.time - startTime) * Speed;
-//        var fracJourney = distCovered / 1f;
-//
-//        if (_currColorID != _nextColorId)
-//        {
-//            _currColorTop = Color.Lerp(_currColorTop, ColorsTop[_nextColorId], fracJourney);
-//            if (_currColorTop != ColorsTop[_nextColorId])
-//                GetComponent<Skybox>().material.SetColor("_Color2", _currColorTop);
-//            else
-//                _currColorID = _nextColorId;
-//            _currColorDown = Color.Lerp(_currColorDown, ColorsDown[_nextColorId], fracJourney);
-//            if (_currColorDown != ColorsDown[_nextColorId])
-//                GetComponent<Skybox>().material.SetColor("_Color1", _currColorDown);
-//        }
+//        _currColorTop = ColorsTop[СurrentId];
+//        GetComponent<Skybox>().material.SetColor("_Color2", _currColorTop);
+//        _currColorDown = ColorsDown[СurrentId];
+//        GetComponent<Skybox>().material.SetColor("_Color1", _currColorDown);
 //    }
+
+    private void Update()
+    {
+        _time += Time.deltaTime;
+        if (_time >= Delay)
+        {
+            _time = 0f;
+            ChooseNextColor();
+        }
+
+        var distCovered = (Time.time - startTime) * Speed;
+        var fracJourney = distCovered / 1f;
+
+        if (_currColorID != _nextColorId)
+        {
+            _currColorTop = Color.Lerp(_currColorTop, ColorsTop[_nextColorId], fracJourney);
+            if (_currColorTop != ColorsTop[_nextColorId])
+                GetComponent<Skybox>().material.SetColor("_Color2", _currColorTop);
+            else
+                _currColorID = _nextColorId;
+            _currColorDown = Color.Lerp(_currColorDown, ColorsDown[_nextColorId], fracJourney);
+            if (_currColorDown != ColorsDown[_nextColorId])
+                GetComponent<Skybox>().material.SetColor("_Color1", _currColorDown);
+        }
+    }
 }

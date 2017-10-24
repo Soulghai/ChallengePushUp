@@ -7,7 +7,8 @@ public struct DefsGame
     public static GameServicesManager GameServices;
     public static int GameplayCounter = 0; // Считает количество игр сыгранных в этой игровой сессии
     public static int CurrentPointsCount = 0;
-    public static int GameBestScore; // Лучший счет
+    public static int TotalProgress; // На данный момент сделали 
+    public static int TotalGoal; // Цель
     public static int CoinsCount; // Количество очков игрока  
     
     public static bool IsFirstBuy; // Первая покупка была произведена 
@@ -40,7 +41,6 @@ public struct DefsGame
         SecurePlayerPrefs.AutoConvertUnsecurePrefs = true;
         
         IsFirstBuy = SecurePlayerPrefs.GetBool("IsFirstBuy");
-        GameBestScore = SecurePlayerPrefs.GetInt("BestScore");
 //      gameBestScore = 0;
         CoinsCount = SecurePlayerPrefs.GetInt("coinsCount");
 //        CoinsCount = 2000;

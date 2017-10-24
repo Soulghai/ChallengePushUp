@@ -18,12 +18,12 @@ public class GoalScript : MonoBehaviour {
 	private const float StartMass = 180f;
 	private Rigidbody2D _body;
 	[HideInInspector] public bool IsEnableClick;
-	[HideInInspector] public int TotalGoal;
 	[HideInInspector] public int TotalDays;
 	[HideInInspector] public BubbleFieldState State;
 	private DateTime _launchDate;
 	private int _currentDay;
 	private int _currentDayValue;
+	private int lastAddedValue;
 
 
 	private void Awake()
@@ -43,8 +43,9 @@ public class GoalScript : MonoBehaviour {
 		_currentDay = PlayerPrefs.GetInt("CurrentDay",0);
 		_currentDayValue = PlayerPrefs.GetInt("CurrentDayValue",0);
 		TotalProgress = PlayerPrefs.GetInt("CurrentProgress", 0);
-		TotalGoal = PlayerPrefs.GetInt("TotalGoal");
-		if (_total) _total.text = TotalGoal.ToString();
+		DefsGame.TotalProgress = TotalProgress;
+		DefsGame.TotalGoal = PlayerPrefs.GetInt("TotalGoal");
+		if (_total) _total.text = DefsGame.TotalGoal.ToString();
 		TotalDays = PlayerPrefs.GetInt("TotalDays");
 		if (_today) _today.text = _currentDayValue.ToString();
 	}
@@ -65,6 +66,17 @@ public class GoalScript : MonoBehaviour {
 		Bubble.OnAddValue += OnBubbleAddValue;
 		BubbleField.OnSumCalced += OnSumCalced;
 		BubbleField.OnResetPoints += OnResetPoints;
+		GlobalEvents<OnRedo>.Happened += OnRedo;
+	}
+
+	private void OnRedo(OnRedo obj)
+	{
+		TotalProgress -= lastAddedValue;
+		SetTotalProgress(TotalProgress);
+		PlayerPrefs.SetInt("CurrentProgress", TotalProgress);
+		_currentDayValue -= lastAddedValue;
+		SetToDayProgress(_currentDayValue);
+		DefsGame.TotalProgress = TotalProgress;
 	}
 
 	private void Unsubscribe()
@@ -73,6 +85,7 @@ public class GoalScript : MonoBehaviour {
 		Bubble.OnAddValue -= OnBubbleAddValue;
 		BubbleField.OnSumCalced -= OnSumCalced;
 		BubbleField.OnResetPoints -= OnResetPoints;
+		GlobalEvents<OnRedo>.Happened -= OnRedo;
 	}
 
 	private void OnResetPoints()
@@ -91,16 +104,17 @@ public class GoalScript : MonoBehaviour {
 	public void SetTotalProgress(int value)
 	{
 		TotalProgress = value;
-		if (TotalProgress > TotalGoal)
+		if (TotalProgress > DefsGame.TotalGoal)
 		{
-			TotalProgress = TotalGoal;
+			TotalProgress = DefsGame.TotalGoal;
 			if (State == BubbleFieldState.AddValue)
 				ScreensFSM.Fsm.SendEvent("ChallengeEnd");
 		}
 		_totalProgress.text = TotalProgress.ToString();
-		float addSize = (float)TotalProgress / TotalGoal * (1f - StartSize);
+		float addSize = (float)TotalProgress / DefsGame.TotalGoal * (1f - StartSize);
 		_scalablePart.transform.localScale = new Vector3(StartSize + addSize, StartSize + addSize, 1f);
 		_body.mass = StartMass * (StartSize + addSize);
+		DefsGame.TotalProgress = TotalProgress;
 	}
 
 	private void OnBubblesHide()
@@ -136,7 +150,9 @@ public class GoalScript : MonoBehaviour {
 			PlayerPrefs.SetInt("CurrentProgress", TotalProgress);
 			_currentDayValue += obj;
 			SetToDayProgress(_currentDayValue);
-			DefsGame.GameBestScore = TotalProgress;
+			DefsGame.TotalProgress = TotalProgress;
+			UIManager.ShowUiElement("ScreenAddValueRedo");
+			lastAddedValue += obj;
 		}
 	}
 
@@ -150,6 +166,7 @@ public class GoalScript : MonoBehaviour {
 			if (State == BubbleFieldState.SetGoal)
 			{
 				PlayerPrefs.SetInt("TotalGoal", TotalProgress);
+				DefsGame.TotalGoal = TotalProgress;
 				UIManager.ShowUiElement("ScreenSetupGoalReset");
 				UIManager.ShowUiElement("ScreenSetupGoalNext");
 			}
@@ -180,14 +197,14 @@ public class GoalScript : MonoBehaviour {
 	{
 		var currentDate = DateTime.UtcNow;
 		var difference = currentDate.Subtract(_launchDate);
-		if (_day) _day.text = (int)(difference.TotalMinutes+1) + "/" + TotalDays;
-		if (Math.Abs(_currentDay - difference.TotalMinutes) > 1.00f)
+		if (_day) _day.text = (int)(difference.TotalDays+1) + "/" + TotalDays;
+		if (Math.Abs(_currentDay - difference.TotalDays) > 1.00f)
 		{
-			if (_currentDay > difference.TotalMinutes)
+			if (_currentDay > difference.TotalDays)
 			{
 				ScreensFSM.Fsm.SetState("ScreenAddValue");
 			}
-			_currentDay = (int)difference.TotalMinutes;
+			_currentDay = (int)difference.TotalDays;
 			PlayerPrefs.SetInt("CurrentDay", _currentDay);
 			_currentDayValue = 0;
 			if (_today) _today.text = "0";
